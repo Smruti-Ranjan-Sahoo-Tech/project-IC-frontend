@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/* Tailwind v4: enable class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== GLOBAL THEME TRANSITION SETUP ===== */
+/* All theme-aware elements transition smoothly between light and dark modes */
+
+:root {
+  /* Light Mode Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+
+  --accent-primary: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-light: #eff6ff;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #0ea5e9;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  /* Dark Mode Colors */
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-tertiary: #2d3748;
+
+  --text-primary: #f3f4f6;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+
+  --border-primary: #374151;
+  --border-secondary: #4b5563;
+
+  --accent-primary: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-light: #1e3a8a;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #0ea5e9;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== SMOOTH TRANSITIONS FOR THEME SWITCHING ===== */
+/* Limit transitions to avoid jitter on complex components */
+html, body, main, [role="main"] {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Smooth color scheme transition */
+* {
+  color-scheme: light;
+}
+
+.dark * {
+  color-scheme: dark;
+}
+
+/* Selection colors for both themes */
+::selection {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+.dark ::selection {
+  background-color: var(--accent-hover);
+  color: white;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-tertiary);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ===== ANIMATION DEFINITIONS ===== */
+@keyframes logo-marquee-rtl {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes logo-card-float {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.94;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 0.94;
+  }
+}
+
+.logo-marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.logo-marquee-track {
+  width: max-content;
+  animation: logo-marquee-rtl 28s linear infinite;
+  will-change: transform;
+}
+
+.logo-card-float {
+  animation: logo-card-float 3.2s ease-in-out infinite;
+}
+
+.home-text-reveal {
+  animation: home-text-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.home-box-pop {
+  animation: home-box-pop 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.home-delay-1 {
+  animation-delay: 120ms;
+}
+
+.home-delay-2 {
+  animation-delay: 220ms;
+}
+
+.home-delay-3 {
+  animation-delay: 320ms;
+}
+
+.home-delay-4 {
+  animation-delay: 420ms;
+}
+
+.home-delay-5 {
+  animation-delay: 520ms;
+}
+
+@keyframes home-text-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-box-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== THEME TRANSITION UTILITY CLASSES ===== */
+/* Use these for custom transition control */
+.theme-transition {
+  transition: background-color 0.3s ease;
+}
+
+.theme-transition-fast {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.theme-transition-slow {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.theme-transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Ensure inputs and form elements transition smoothly */
+input, textarea, select, button {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Links and hover states */
+a {
+  transition: color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Subtle hover lift for interactive elements */
+a:hover,
+button:hover,
+[role="button"]:hover {
+  transform: translateY(-1px);
+}
+
+a:active,
+button:active,
+[role="button"]:active {
+  transform: translateY(0);
+}
+
+/* Reusable hover effects for cards/tiles */
+.hover-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+}
+
+.dark .hover-card:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== RESPONSIVE BEHAVIOR ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .logo-marquee-track,
+  .logo-card-float,
+  .home-text-reveal,
+  .home-box-pop {
+    animation: none;
+  }
+}
