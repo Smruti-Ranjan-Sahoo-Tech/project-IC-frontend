@@ -5,6 +5,8 @@ import UserProfile from '../components/PrivateDashboardComponents/UserProfile'
 import MyQuestions from '../components/PrivateDashboardComponents/MyQuestions'
 import AddUserReview from '../components/PrivateDashboardComponents/AddUserReview'
 import AllUserReviews from '../components/PrivateDashboardComponents/AllUserReviews'
+import AddUserNote from '../components/PrivateDashboardComponents/AddUserNote'
+import AllUserNotes from '../components/PrivateDashboardComponents/AllUserNotes'
 
 const UserDashboard = () => {
   return (
@@ -20,6 +22,9 @@ const UserDashboard = () => {
           <Route path="/review/add" element={<AddUserReview />} />
           <Route path="/review/all" element={<AllUserReviews />} />
           <Route path="/review" element={<Navigate to="/user/review/add" replace />} />
+          <Route path="/note/add" element={<AddUserNote />} />
+          <Route path="/note/all" element={<AllUserNotes />} />
+          <Route path="/note" element={<Navigate to="/user/note/add" replace />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="*" element={<Navigate to="/user" replace />} />
         </Routes>

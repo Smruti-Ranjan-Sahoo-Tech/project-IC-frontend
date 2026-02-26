@@ -15,13 +15,25 @@ export const useUserStore = create((set, get) => ({
     subjects: [],
     pendingReviews: [],
     approvedReviews: [],
+    pendingNotes: [],
+    approvedNotes: [],
     loading: false,
     subjectLoading: false,
     allUserReviewLoading: false,
+    allUserNoteLoading: false,
     reviewLoading: false,
     reviewHistoryLoading: false,
+    noteLoading: false,
+    noteHistoryLoading: false,
     allUserReviews: [],
+    allUserNotes: [],
     allUserReviewsPagination: {
+        currentPage: 1,
+        limit: 10,
+        total: 0,
+        totalPages: 0
+    },
+    allUserNotesPagination: {
         currentPage: 1,
         limit: 10,
         total: 0,
@@ -180,14 +192,99 @@ export const useUserStore = create((set, get) => ({
         }
     },
 
+    addNote: async (payload) => {
+        set({ noteLoading: true })
+        try {
+            const formData = new FormData()
+            Object.entries(payload || {}).forEach(([key, value]) => {
+                if (value !== undefined && value !== null && value !== "") {
+                    formData.append(key, value)
+                }
+            })
+            const res = await axiosInstance.post("/user/add-note", formData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            })
+            toast.success(res.data.message || "Note submitted successfully")
+            return res.data.note || res.data.notes || {}
+        } catch (error) {
+            const apiMessage = error?.response?.data?.message
+            const resolvedMessage =
+                typeof apiMessage === "string"
+                    ? apiMessage
+                    : (apiMessage && JSON.stringify(apiMessage)) || error.message || "Failed to submit note"
+            toast.error(resolvedMessage)
+            return null
+        } finally {
+            set({ noteLoading: false })
+        }
+    },
+
+    getNote: async () => {
+        set({ noteHistoryLoading: true })
+        try {
+            const res = await axiosInstance.get("/user/get-note")
+            set({
+                pendingNotes: res.data.pendingNotes || [],
+                approvedNotes: res.data.approvedNotes || []
+            })
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error.message)
+        } finally {
+            set({ noteHistoryLoading: false })
+        }
+    },
+
+    getAllUserNotes: async ({
+        subject = "all",
+        questionType = "all",
+        companyType = "all",
+        company = "all",
+        location = "all",
+        page = 1,
+        limit = 10
+    }) => {
+        set({ allUserNoteLoading: true })
+        try {
+            const res = await axiosInstance.get("/user/get-all-user-note", {
+                params: {
+                    subject: subject || "all",
+                    questionType: questionType || "all",
+                    companyType: companyType || "all",
+                    company: company || "all",
+                    location: location || "all",
+                    page,
+                    limit
+                }
+            })
+
+            set({
+                allUserNotes: res.data.notes || [],
+                allUserNotesPagination: {
+                    currentPage: res.data.page || 1,
+                    limit: res.data.limit || limit,
+                    total: res.data.total || 0,
+                    totalPages: res.data.totalPages || 0
+                }
+            })
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error.message)
+        } finally {
+            set({ allUserNoteLoading: false })
+        }
+    },
+
     clearPosts: () => set({
         posts: [],
         subjects: [],
         pendingReviews: [],
         approvedReviews: [],
+        pendingNotes: [],
+        approvedNotes: [],
         allUserReviews: [],
+        allUserNotes: [],
         userDashboardFilters: { ...defaultUserDashboardFilters },
         pagination: { currentPage: 1, limit: 10, total: 0, totalPages: 0 },
-        allUserReviewsPagination: { currentPage: 1, limit: 10, total: 0, totalPages: 0 }
+        allUserReviewsPagination: { currentPage: 1, limit: 10, total: 0, totalPages: 0 },
+        allUserNotesPagination: { currentPage: 1, limit: 10, total: 0, totalPages: 0 }
     })
 }))

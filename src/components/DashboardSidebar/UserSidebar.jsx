@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
-import { LayoutDashboard, User, PlusCircle, ListChecks, LogOut } from "lucide-react";
+import { LayoutDashboard, User, PlusCircle, ListChecks, LogOut, NotebookPen, BookOpenText } from "lucide-react";
 
 const UserSidebar = () => {
   const location = useLocation();
@@ -11,6 +11,8 @@ const UserSidebar = () => {
     { label: "Dashboard", icon: LayoutDashboard, path: "/user" },
     { label: "Add Review", icon: PlusCircle, path: "/user/review/add" },
     { label: "All User Reviews", icon: ListChecks, path: "/user/review/all" },
+    { label: "Add Note", icon: NotebookPen, path: "/user/note/add" },
+    { label: "All User Notes", icon: BookOpenText, path: "/user/note/all" },
     { label: "Profile", icon: User, path: "/user/profile" }
   ];
 
