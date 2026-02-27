@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import { FaFacebookF, FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { axiosInstance } from '../API/axiosInstace'
 import Footer from '../components/Footer/Footer'
 
@@ -58,7 +59,7 @@ const ContactUs = () => {
             <div className="space-y-8">
               {[
                 { icon: '✉️', title: 'Email', value: 'support@learninghub.com', desc: 'We respond within 24 hours' },
-                { icon: '📍', title: 'Address', value: '123 Tech Street, San Francisco, CA 94105', desc: 'Visit our office' },
+                { icon: '📍', title: 'Address', value: 'QSpiders, Bhubaneswar (BBSR)', desc: 'Visit our office' },
                 { icon: '📞', title: 'Phone', value: '+1 (555) 123-4567', desc: 'Available Monday-Friday 9-5 PST' },
               ].map((item, idx) => (
                 <div key={idx}>
@@ -73,14 +74,15 @@ const ContactUs = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-4">Follow us on social media</p>
                 <div className="flex gap-4">
                   {[
-                    { icon: 'f', label: 'Facebook' },
-                    { icon: 't', label: 'Twitter' },
-                    { icon: 'in', label: 'LinkedIn' },
-                    { icon: 'gh', label: 'GitHub' },
+                    { icon: <FaFacebookF size={16} />, label: 'Facebook' },
+                    { icon: <FaTwitter size={16} />, label: 'Twitter' },
+                    { icon: <FaLinkedinIn size={16} />, label: 'LinkedIn' },
+                    { icon: <FaGithub size={16} />, label: 'GitHub' },
                   ].map((social, idx) => (
                     <a
                       key={idx}
                       href="#"
+                      aria-label={social.label}
                       className="hover-card w-12 h-12 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-full flex items-center justify-center font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
                     >
                       {social.icon}

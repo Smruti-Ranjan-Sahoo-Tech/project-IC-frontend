@@ -50,7 +50,7 @@ const Home = () => {
     },
     {
       name: "Deloitte",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/5/53/Deloitte_Logo.svg"
+      logo: "https://cdn.brandfetch.io/idIu-Ji9Le/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B"
     }
   ];
 
