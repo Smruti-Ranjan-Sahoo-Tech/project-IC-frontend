@@ -32,7 +32,7 @@ const Router = () => {
       <Route path="/login" element={isLoggedIn ? <Navigate to={role === 'admin' ? '/admin' : '/user'} replace /> : <Login />} />
       <Route path="/register" element={isLoggedIn ? <Navigate to={role === 'admin' ? '/admin' : '/user'} replace /> : <Register />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/reset-password/" element={<ResetPassword />} />
 
       {/* Protected Routes */}
       <Route path="/change-password" element={<ChangePassword />} />
